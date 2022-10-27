@@ -29,13 +29,13 @@ class PokeController_Menubar(tk.Menu):
         tk.Menu.__init__(self, self.root, **kw)
         self.menu = tk.Menu(self, tearoff='false')
         self.menu_command = tk.Menu(self, tearoff='false')
-        self.add(tk.CASCADE, menu=self.menu, label='メニュー')
-        self.menu.add(tk.CASCADE, menu=self.menu_command, label='コマンド')
+        self.add(tk.CASCADE, menu=self.menu, label='Menu')
+        self.menu.add(tk.CASCADE, menu=self.menu_command, label='Command')
 
         self.menu.add('separator')
-        self.menu.add('command', label='設定(dummy)')
+        self.menu.add('command', label='Settings(dummy)')
         # TODO: setup command_id_arg 'false' for menuitem.
-        self.menu.add('command', command=self.exit, label='終了')
+        self.menu.add('command', command=self.exit, label='Exit')
 
         self.AssignMenuCommand()
         self.LineTokenSetting()
@@ -44,11 +44,15 @@ class PokeController_Menubar(tk.Menu):
 
     def AssignMenuCommand(self):
         self._logger.debug("Assigning menu command")
-        self.menu_command.add('command', command=self.LineTokenSetting, label='LINE Token Check')
+        self.menu_command.add(
+            'command', command=self.LineTokenSetting, label='LINE Token Check')
         # TODO: setup command_id_arg 'false' for menuitem.
-        self.menu_command.add('command', command=self.OpenPokeHomeCoop, label='Pokemon Home 連携')
-        self.menu_command.add('command', command=self.OpenKeyConfig, label='キーコンフィグ')
-        self.menu_command.add('command', command=self.ResetWindowSize, label='画面サイズのリセット')
+        self.menu_command.add(
+            'command', command=self.OpenPokeHomeCoop, label='Pokemon Home Data')
+        self.menu_command.add(
+            'command', command=self.OpenKeyConfig, label='Key Config')
+        self.menu_command.add(
+            'command', command=self.ResetWindowSize, label='Reset Video Player Size')
 
     # TODO: setup command_id_arg 'false' for menuitem.
 
@@ -58,7 +62,8 @@ class PokeController_Menubar(tk.Menu):
             self.poke_treeview.focus_force()
             return
 
-        window2 = GetFromHomeGUI(self.root, self.settings.season, self.settings.is_SingleBattle)
+        window2 = GetFromHomeGUI(
+            self.root, self.settings.season, self.settings.is_SingleBattle)
         window2.protocol("WM_DELETE_WINDOW", self.closingGetFromHome)
         self.poke_treeview = window2
 

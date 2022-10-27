@@ -5,12 +5,14 @@ from Commands.PythonCommandBase import ImageProcPythonCommand
 
 
 class ImageRecRect(ImageProcPythonCommand):
-    NAME = '画像認識(枠表示)'
+    NAME = '[DEBUG] Image Recognition Overlay Example'
 
     def __init__(self, cam, gui=None):
-        super().__init__(cam, gui)  # ← 必須の変更点です 引数が追加されています。
+        # ← [EN] Required arguments [JP] ← 必須の変更点です 引数が追加されています。
+        super().__init__(cam, gui)
         self.cam = cam
-        self.gui = gui  # この行はなくても動きますが一応
+        # [EN] This line isn't required, but just to be safe. [JP] この行はなくても動きますが一応
+        self.gui = gui
 
     def do(self):
         for i in range(1):
@@ -18,6 +20,7 @@ class ImageRecRect(ImageProcPythonCommand):
                                             show_position=True,  # このオプションをFalseにすると枠が非表示になります
                                             show_only_true_rect=True,  # このオプションをFalseにすると、
                                             # 認識できなかった場合に最も近い部分に赤枠を表示します
-                                            ms=1000  # 枠の表示時間(ミリ秒)  デフォルトは2000msです
+                                            # 枠の表示時間(ミリ秒)  デフォルトは2000msです
+                                            ms=1000
                                             )
             # self.wait(1)

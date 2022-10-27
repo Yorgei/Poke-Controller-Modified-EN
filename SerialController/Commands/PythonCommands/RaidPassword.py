@@ -5,17 +5,19 @@ import re
 from Commands.Keys import Button, Direction, Hat
 from Commands.PythonCommandBase import PythonCommand
 # import numpy as np
-from scipy.sparse.csgraph import shortest_path  # , floyd_warshall, dijkstra, bellman_ford, johnson
+# , floyd_warshall, dijkstra, bellman_ford, johnson
+from scipy.sparse.csgraph import shortest_path
 from scipy.sparse import csr_matrix
 
-raid_pass = {0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9'}
+raid_pass = {0: '0', 1: '1', 2: '2', 3: '3',
+             4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9'}
 raid_pass_inv = {v: k for k, v in raid_pass.items()}
 raid_pass_list = [[8], [2, 4], [1, 3, 5], [2, 6], [1, 5, 7], [2, 4, 6, 8], [3, 5, 9], [4, 8, 0], [7, 5, 9, 0],
                   [8, 6, 0]]
 
 
 class Move2(PythonCommand):
-    NAME = 'キーボード入力2'
+    NAME = 'Keyboard Input 2'
 
     def __init__(self):
         super().__init__()

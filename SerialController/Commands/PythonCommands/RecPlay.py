@@ -12,7 +12,7 @@ import numpy as np
 # Mash a button A
 # A連打
 class PlayRec(PythonCommand):
-    NAME = '記録したログを再生'
+    NAME = 'Play Recorded Log File'
 
     def __init__(self):
         super().__init__()
@@ -39,10 +39,12 @@ class PlayRec(PythonCommand):
         self.log = file.name
         print(self.log)
         with open(self.log) as f:
-            l_strip = [list(map(float, s.strip().split(","))) for s in f.readlines()]
+            l_strip = [list(map(float, s.strip().split(",")))
+                       for s in f.readlines()]
             # print(l_strip[:20])
         for i in l_strip:
             self.LStick(i[0], i[1], duration=i[2] * 1.0)
             # self.wait(i[2]*0.90)
 
-        self.stickEnd(Direction(Stick.LEFT, 0, 0, showName=f'Angle={l_strip[0][0]},r={l_strip[0][1]}'))
+        self.stickEnd(Direction(Stick.LEFT, 0, 0,
+                      showName=f'Angle={l_strip[0][0]},r={l_strip[0][1]}'))

@@ -10,7 +10,7 @@ from Commands.PythonCommandBase import ImageProcPythonCommand
 # auto egg hatching using image recognition
 # 自動卵孵化(キャプボあり)
 class CalcTime(ImageProcPythonCommand):
-    NAME = 'テンプレートマッチング時間計測'
+    NAME = '[DEBUG] Template Matching Speed Test'
 
     def __init__(self, cam):
         super().__init__(cam)
@@ -24,23 +24,27 @@ class CalcTime(ImageProcPythonCommand):
             print("Measure Calc.Speed btw. CPU, GPU for {0} iter".format(iter))
             start = time.time()
             for i in range(iter):
-                result = self.isContainTemplate("shiny_mark1.png", 0.7, True, False)
+                result = self.isContainTemplate(
+                    "shiny_mark1.png", 0.7, True, False)
             n = time.time() - start
             print("CPU, Gray: Total: {0}, Ave: {1}".format(n, n / iter))
             start = time.time()
             for i in range(iter):
-                result = self.isContainTemplate("shiny_mark1.png", 0.7, False, False)
+                result = self.isContainTemplate(
+                    "shiny_mark1.png", 0.7, False, False)
             n = time.time() - start
             print("CPU, Color: Total: {0}, Ave: {1}".format(n, n / iter))
 
             start = time.time()
             for i in range(iter):
-                result = self.isContainTemplateGPU("shiny_mark1.png", 0.7, True, False)
+                result = self.isContainTemplateGPU(
+                    "shiny_mark1.png", 0.7, True, False)
             n = time.time() - start
             print("GPU, Gray: Total: {0}, Ave: {1}".format(n, n / iter))
             start = time.time()
             for i in range(iter):
-                result = self.isContainTemplateGPU("shiny_mark1.png", 0.7, False, False)
+                result = self.isContainTemplateGPU(
+                    "shiny_mark1.png", 0.7, False, False)
             n = time.time() - start
             print("GPU, Color: Total: {0}, Ave: {1}".format(n, n / iter))
 

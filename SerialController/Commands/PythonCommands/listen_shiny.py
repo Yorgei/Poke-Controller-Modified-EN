@@ -45,7 +45,7 @@ OpenCVの使用中(=映像キャプチャ中)は他の手段でキャプチャ�
 
 
 class ListenShiny(PythonCommand):
-    NAME = '色違いの音を聴きたい'
+    NAME = 'Listen for Shiny'
 
     def __init__(self):
         super().__init__()
@@ -60,7 +60,8 @@ class ListenShiny(PythonCommand):
         data1 = []
         data2 = []
 
-        freqList = np.fft.fftfreq(int(1.5 * RATE / CHUNK) * CHUNK * 2, d=1.0 / RATE)
+        freqList = np.fft.fftfreq(
+            int(1.5 * RATE / CHUNK) * CHUNK * 2, d=1.0 / RATE)
 
         p = pyaudio.PyAudio()
 
@@ -77,7 +78,8 @@ class ListenShiny(PythonCommand):
                         frames_per_buffer=CHUNK,
                         input=True,
                         output=False)
-        self._logger.debug(f"Connect: {p.get_device_info_by_index(device_index)}")
+        self._logger.debug(
+            f"Connect: {p.get_device_info_by_index(device_index)}")
         try:
             while stream.is_active():  # 無限ループします
                 if not self.checkIfAlive():
@@ -103,7 +105,8 @@ class ListenShiny(PythonCommand):
                         fft_data = np.fft.fft(data)
                         data2 = []
 
-                    fft_abs = np.abs(fft_data)  # / (np.max(fft_data)-np.min(fft_data)) * 1e7
+                    # / (np.max(fft_data)-np.min(fft_data)) * 1e7
+                    fft_abs = np.abs(fft_data)
                     # 正規化っぽいことしようと思ったけどよくわからなかった
 
                     # plt.plot(freqList, fft_abs)  # matplotlibで可視化するとき用．
@@ -111,8 +114,10 @@ class ListenShiny(PythonCommand):
                     # plt.draw() #  グラフ表示用
                     # plt.show() #  グラフ表示用
 
-                    data3100 = fft_abs[np.where((freqList < 3200) & (freqList > 3000))]  # 3100Hz付近の周波数成分
-                    data4200 = fft_abs[np.where((freqList < 4400) & (freqList > 4150))]  # 4200Hz付近の周波数成分
+                    data3100 = fft_abs[np.where((freqList < 3200) & (
+                        freqList > 3000))]  # 3100Hz付近の周波数成分
+                    data4200 = fft_abs[np.where((freqList < 4400) & (
+                        freqList > 4150))]  # 4200Hz付近の周波数成分
 
                     if (data3100.max() > 0.4 * l) and (data4200.max() > 1 * l):
                         # 3100Hz付近と4200Hz付近の強度が一定以上あったとき、色違いと判断

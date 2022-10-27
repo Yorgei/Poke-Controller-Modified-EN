@@ -24,11 +24,13 @@ class Fossil_shiny(ImageProcPythonCommand):
                 self.press(Button.A, wait=0.75)
 
                 if head == 1:
-                    self.press(Direction.DOWN, duration=0.07, wait=0.75)  # select fossil
+                    self.press(Direction.DOWN, duration=0.07,
+                               wait=0.75)  # select fossil
                 self.press(Button.A, wait=0.75)  # determine fossil
 
                 if body == 1:
-                    self.press(Direction.DOWN, duration=0.07, wait=0.75)  # select fossil
+                    self.press(Direction.DOWN, duration=0.07,
+                               wait=0.75)  # select fossil
                 self.press(Button.A, wait=0.75)  # determine fossil
 
                 self.press(Button.A, wait=0.75)  # select "それでよければ"
@@ -54,7 +56,8 @@ class Fossil_shiny(ImageProcPythonCommand):
             self.press(Button.A, wait=2.5)  # closed
             self.press(Button.A, wait=2.0)  # Choose game
             self.press(Button.A)  # User selection
-            while not self.isContainTemplate('OP.png', 0.7):  # recognize Opening
+            # recognize Opening
+            while not self.isContainTemplate('OP.png', 0.7):
                 self.wait(0.2)
             self.press(Button.A)  # load save-data
             while not self.isContainTemplate('Network_Offline.png', 0.8):
@@ -83,7 +86,7 @@ class Fossil_shiny(ImageProcPythonCommand):
 
 
 class Fossil_shiny_00(Fossil_shiny):  # パッチラゴン
-    NAME = 'カセキ色厳選(パッチラゴン)'
+    NAME = '[Cam] Shiny Fossil (Dracozolt)'
 
     def __init__(self, cam):
         super().__init__(cam)
@@ -93,7 +96,7 @@ class Fossil_shiny_00(Fossil_shiny):  # パッチラゴン
 
 
 class Fossil_shiny_01(Fossil_shiny):  # パッチルドン
-    NAME = 'カセキ色厳選(パッチルドン)'
+    NAME = '[Cam] Shiny Fossil (Arctozolt)'
 
     def __init__(self, cam):
         super().__init__(cam)
@@ -103,7 +106,7 @@ class Fossil_shiny_01(Fossil_shiny):  # パッチルドン
 
 
 class Fossil_shiny_10(Fossil_shiny):  # ウオノラゴン
-    NAME = 'カセキ色厳選(ウオノラゴン)'
+    NAME = '[Cam] Shiny Fossil (Dragovish)'
 
     def __init__(self, cam):
         super().__init__(cam)
@@ -113,7 +116,7 @@ class Fossil_shiny_10(Fossil_shiny):  # ウオノラゴン
 
 
 class Fossil_shiny_11(Fossil_shiny):  # ウオチルドン
-    NAME = 'カセキ色厳選(ウオチルドン)'
+    NAME = '[Cam] Shiny Fossil (Arctovish)'
 
     def __init__(self, cam):
         super().__init__(cam)

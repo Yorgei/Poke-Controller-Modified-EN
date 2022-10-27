@@ -6,7 +6,7 @@ from Commands.PythonCommandBase import PythonCommand
 
 
 class InfinityFeather(PythonCommand):
-    NAME = '無限羽回収'
+    NAME = '[Rank Bug] Infinite Feathers'
 
     def __init__(self):
         super().__init__()
@@ -22,7 +22,8 @@ class InfinityFeather(PythonCommand):
             # print('Map')
             self.press(Button.X, wait=1.5)  # open up a map
             self.press(Button.A, wait=3.0)
-            self.press(Direction(Stick.LEFT, 45), duration=0.05)  # Select a Pokémon Day Care
+            # Select a Pokémon Day Care
+            self.press(Direction(Stick.LEFT, 45), duration=0.05)
             self.press(Button.A, wait=1)
             self.press(Button.A, wait=4.0)
 

@@ -11,7 +11,7 @@ from Commands.PythonCommandBase import ImageProcPythonCommand
 # Infinity getting berries
 # 無限きのみ(ランクマッチ, 画像認識任意)
 class InfinityBerry(ImageProcPythonCommand):
-    NAME = '無限きのみ'
+    NAME = '[Rank Bug] Infinite Berry'
 
     def __init__(self, cam):
         super().__init__(cam)
@@ -67,11 +67,14 @@ class InfinityBerry(ImageProcPythonCommand):
         zero_cnt = 0
         height_half = int(self.camera.capture_size[1] / 2)
 
-        frame1 = cv2.cvtColor(self.camera.readFrame()[0:height_half - 1, :], cv2.COLOR_BGR2GRAY)
+        frame1 = cv2.cvtColor(self.camera.readFrame()[
+                              0:height_half - 1, :], cv2.COLOR_BGR2GRAY)
         self.wait(check_interval / 3)
-        frame2 = cv2.cvtColor(self.camera.readFrame()[0:height_half - 1, :], cv2.COLOR_BGR2GRAY)
+        frame2 = cv2.cvtColor(self.camera.readFrame()[
+                              0:height_half - 1, :], cv2.COLOR_BGR2GRAY)
         self.wait(check_interval / 3)
-        frame3 = cv2.cvtColor(self.camera.readFrame()[0:height_half - 1, :], cv2.COLOR_BGR2GRAY)
+        frame3 = cv2.cvtColor(self.camera.readFrame()[
+                              0:height_half - 1, :], cv2.COLOR_BGR2GRAY)
 
         while time < check_duration:
             mask = self.getInterframeDiff(frame1, frame2, frame3, 15)
@@ -80,7 +83,8 @@ class InfinityBerry(ImageProcPythonCommand):
             frame1 = frame2
             frame2 = frame3
             self.wait(check_interval)
-            frame3 = cv2.cvtColor(self.camera.readFrame()[0:height_half - 1, :], cv2.COLOR_BGR2GRAY)
+            frame3 = cv2.cvtColor(self.camera.readFrame()[
+                                  0:height_half - 1, :], cv2.COLOR_BGR2GRAY)
 
             time += check_interval
 

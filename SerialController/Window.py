@@ -89,7 +89,8 @@ class PokeControllerApp:
         self.captureButton.config(text='Capture')
         self.captureButton.grid(column='0', row='0')
         self.captureButton.configure(command=self.saveCapture)
-        self.open_folder_img = tk.PhotoImage(file="./assets/icons8-OpenDir-16.png")
+        self.open_folder_img = tk.PhotoImage(
+            file="./assets/icons8-OpenDir-16.png")
         # self.bg = self.bg.subsample(3, 3)
         self.OpencaptureButton = ttk.Button(self.capture_f)
         self.OpencaptureButton.config(image=self.open_folder_img)
@@ -103,7 +104,8 @@ class PokeControllerApp:
         self.label3.grid(padx='5', sticky='ew')
         self.fps_cb = ttk.Combobox(self.camera_f2)
         self.fps = tk.StringVar()
-        self.fps_cb.config(justify='right', state='readonly', textvariable=self.fps, values=[60, 45, 30, 15, 5])
+        self.fps_cb.config(justify='right', state='readonly',
+                           textvariable=self.fps, values=[60, 45, 30, 15, 5])
         self.fps_cb.config(width='5')
         self.fps_cb.grid(column='1', padx='10', row='0', sticky='ew')
         self.fps_cb.bind('<<ComboboxSelected>>', self.applyFps, add='')
@@ -115,18 +117,23 @@ class PokeControllerApp:
         self.show_size_label.grid(column='3', padx='5', row='0', sticky='ew')
         self.show_size_cb = ttk.Combobox(self.camera_f2)
         self.show_size = tk.StringVar()
-        self.show_size_cb.config(textvariable=self.show_size, state='readonly', values='640x360 1280x720 1920x1080')
+        self.show_size_cb.config(
+            textvariable=self.show_size, state='readonly', values='640x360 1280x720 1920x1080')
         self.show_size_cb.grid(column='4', padx='10', row='0', sticky='ew')
-        self.show_size_cb.bind('<<ComboboxSelected>>', self.applyWindowSize, add='')
+        self.show_size_cb.bind('<<ComboboxSelected>>',
+                               self.applyWindowSize, add='')
         self.camera_f2.grid(column='0', columnspan='7', row='3', sticky='nsew')
         self.camera_name_l = ttk.Label(self.camera_lf)
         self.camera_name_l.config(anchor='center', text='Camera Name: ')
         self.camera_name_l.grid(column='0', padx='5', row='1', sticky='ew')
         self.Camera_Name = ttk.Combobox(self.camera_lf)
         self.camera_name_fromDLL = tk.StringVar()
-        self.Camera_Name.config(state='normal', textvariable=self.camera_name_fromDLL)
-        self.Camera_Name.grid(column='1', columnspan='6', padx='5', row='1', sticky='ew')
-        self.Camera_Name.bind('<<ComboboxSelected>>', self.set_cameraid, add='')
+        self.Camera_Name.config(
+            state='normal', textvariable=self.camera_name_fromDLL)
+        self.Camera_Name.grid(column='1', columnspan='6',
+                              padx='5', row='1', sticky='ew')
+        self.Camera_Name.bind('<<ComboboxSelected>>',
+                              self.set_cameraid, add='')
         self.frame_1_2 = ttk.Frame(self.camera_lf)
         self.frame_1_2.config(height='360', relief='groove', width='640')
         self.frame_1_2.grid(column='0', columnspan='7', row='2')
@@ -150,10 +157,12 @@ class PokeControllerApp:
 
         self.baud_rate_cb = ttk.Combobox(self.serial_lf)
         self.baud_rate = tk.StringVar()
-        self.baud_rate_cb.config(justify='right', state='readonly', textvariable=self.baud_rate, values=[9600, 4800])
+        self.baud_rate_cb.config(
+            justify='right', state='readonly', textvariable=self.baud_rate, values=[9600, 4800])
         self.baud_rate_cb.config(width='6')
         self.baud_rate_cb.grid(column='3', padx='5', row='0', sticky='ew')
-        self.baud_rate_cb.bind('<<ComboboxSelected>>', self.applyBaudRate, add='')
+        self.baud_rate_cb.bind('<<ComboboxSelected>>',
+                               self.applyBaudRate, add='')
 
         self.reloadComPort = ttk.Button(self.serial_lf)
         self.reloadComPort.config(text='Reload Port')
@@ -174,11 +183,14 @@ class PokeControllerApp:
         self.separator_4.columnconfigure('3', uniform='None', weight='0')
         self.checkbutton_2 = ttk.Checkbutton(self.serial_lf)
         self.is_show_serial = tk.BooleanVar()
-        self.checkbutton_2.config(text='Show Serial', variable=self.is_show_serial)
-        self.checkbutton_2.grid(column='7', columnspan='2', padx='5', row='0', sticky='ew')
+        self.checkbutton_2.config(
+            text='Show Serial', variable=self.is_show_serial)
+        self.checkbutton_2.grid(
+            column='7', columnspan='2', padx='5', row='0', sticky='ew')
         self.checkbutton_2.rowconfigure('0', uniform='None', weight='0')
         self.serial_lf.config(text='Serial Settings')
-        self.serial_lf.grid(column='0', columnspan='2', padx='5', row='1', sticky='nsew')
+        self.serial_lf.grid(column='0', columnspan='2',
+                            padx='5', row='1', sticky='nsew')
         self.control_lf = ttk.Labelframe(self.frame_1)
         self.cb_use_keyboard = ttk.Checkbutton(self.control_lf)
         self.cb_left_stick_mouse = ttk.Checkbutton(self.control_lf)
@@ -186,30 +198,39 @@ class PokeControllerApp:
         self.is_use_keyboard = tk.BooleanVar()
         self.camera_lf.is_use_left_stick_mouse = tk.BooleanVar()
         self.camera_lf.is_use_right_stick_mouse = tk.BooleanVar()
-        self.cb_use_keyboard.config(text='Use Keyboard', variable=self.is_use_keyboard)
+        self.cb_use_keyboard.config(
+            text='Use Keyboard', variable=self.is_use_keyboard)
         self.cb_use_keyboard.grid(column='0', padx='10', pady='5', sticky='ew')
         self.cb_use_keyboard.rowconfigure('0', weight='1')
         self.cb_use_keyboard.columnconfigure('0', weight='1')
         self.cb_use_keyboard.configure(command=self.activateKeyboard)
-        self.cb_left_stick_mouse.config(text='Use LStick Mouse', variable=self.camera_lf.is_use_left_stick_mouse)
-        self.cb_left_stick_mouse.grid(column='1', row='0', padx='10', pady='5', sticky='ew')
+        self.cb_left_stick_mouse.config(
+            text='Use LStick Mouse', variable=self.camera_lf.is_use_left_stick_mouse)
+        self.cb_left_stick_mouse.grid(
+            column='1', row='0', padx='10', pady='5', sticky='ew')
         self.cb_left_stick_mouse.rowconfigure('0', weight='1')
         self.cb_left_stick_mouse.columnconfigure('0', weight='1')
-        self.cb_left_stick_mouse.configure(command=self.activate_Left_stick_mouse)
-        self.cb_right_stick_mouse.config(text='Use RStick Mouse', variable=self.camera_lf.is_use_right_stick_mouse)
-        self.cb_right_stick_mouse.grid(column='1', row='1', padx='10', pady='5', sticky='ew')
+        self.cb_left_stick_mouse.configure(
+            command=self.activate_Left_stick_mouse)
+        self.cb_right_stick_mouse.config(
+            text='Use RStick Mouse', variable=self.camera_lf.is_use_right_stick_mouse)
+        self.cb_right_stick_mouse.grid(
+            column='1', row='1', padx='10', pady='5', sticky='ew')
         self.cb_right_stick_mouse.rowconfigure('0', weight='1')
         self.cb_right_stick_mouse.columnconfigure('0', weight='1')
-        self.cb_right_stick_mouse.configure(command=self.activate_Right_stick_mouse)
+        self.cb_right_stick_mouse.configure(
+            command=self.activate_Right_stick_mouse)
         self.simpleConButton = ttk.Button(self.control_lf)
         self.simpleConButton.config(text='Controller')
-        self.simpleConButton.grid(column='0', padx='10', pady='5', row='1', sticky='ew')
+        self.simpleConButton.grid(
+            column='0', padx='10', pady='5', row='1', sticky='ew')
         self.simpleConButton.rowconfigure('1', weight='1')
         self.simpleConButton.columnconfigure('0', weight='1')
         self.simpleConButton.configure(command=self.createControllerWindow)
         self.control_lf.config(height='200', text='Controller')
         # self.control_lf.grid(column='0', padx='5', row='2', sticky='nsew')
-        self.control_lf.grid(column='0', padx='5', row='2', columnspan='2', sticky='nsew')
+        self.control_lf.grid(column='0', padx='5', row='2',
+                             columnspan='2', sticky='nsew')
         # self.Poke_statistic_lf = ttk.Labelframe(self.frame_1)
         # self.OpenPokeButton = ttk.Button(self.Poke_statistic_lf)
         # self.OpenPokeButton.config(text='技統計')
@@ -234,36 +255,46 @@ class PokeControllerApp:
         self.mcu_cb.config(state='readonly', textvariable=self.mcu_name)
         self.mcu_cb.pack(side='top')
         self.Command_nb.add(self.mcu_cb, padding='5', text='Mcu Command')
-        self.Command_nb.pack(fill="both", expand=True, padx='5', pady='5', side='left')
+        self.Command_nb.pack(fill="both", expand=True,
+                             padx='5', pady='5', side='left')
 
         self.OpenCommandDirButton = ttk.Button(self.Commands_f)
         self.OpenCommandDirButton.config(image=self.open_folder_img)
-        self.OpenCommandDirButton.pack(fill="y", expand=False, side='left', ipadx='5', pady='15')
+        self.OpenCommandDirButton.pack(
+            fill="y", expand=False, side='left', ipadx='5', pady='15')
         self.OpenCommandDirButton.configure(command=self.OpenCommandDir)
 
         self.reloadCommandButton = ttk.Button(self.Commands_2_f)
         self.reloadCommandButton.config(text='Reload')
-        self.reloadCommandButton.grid(column='0', padx='5', pady='5', row='1', sticky='ew')
+        self.reloadCommandButton.grid(
+            column='0', padx='5', pady='5', row='1', sticky='ew')
         self.reloadCommandButton.configure(command=self.reloadCommands)
         self.startButton = ttk.Button(self.Commands_2_f)
         self.startButton.config(text='Start')
-        self.startButton.grid(column='1', padx='5', pady='5', row='1', sticky='ew')
+        self.startButton.grid(column='1', padx='5',
+                              pady='5', row='1', sticky='ew')
         self.startButton.configure(command=self.startPlay)
 
-        self.Commands_f.pack(fill="both", expand=True, padx='5', pady='5', anchor=tk.E, side='top')
-        self.Commands_2_f.pack(fill=None, expand=True, padx='5', pady='5', anchor=tk.E, side='top')
+        self.Commands_f.pack(fill="both", expand=True,
+                             padx='5', pady='5', anchor=tk.E, side='top')
+        self.Commands_2_f.pack(fill=None, expand=True,
+                               padx='5', pady='5', anchor=tk.E, side='top')
         self.lf.config(height='200', text='Command')
         self.lf.grid(column='2', padx='5', row='1', rowspan='2', sticky='nsew')
         self.log_scroll = ScrollbarHelper(self.frame_1, scrolltype='both')
         self.logArea = tk.Text(self.log_scroll.container)
-        self.logArea.config(blockcursor='true', height='10', insertunfocussed='none', maxundo='0')
-        self.logArea.config(relief='flat', state='disabled', undo='false', width='50')
+        self.logArea.config(blockcursor='true', height='10',
+                            insertunfocussed='none', maxundo='0')
+        self.logArea.config(relief='flat', state='disabled',
+                            undo='false', width='50')
         self.logArea.pack(expand='true', fill='both', side='top')
         self.log_scroll.add_child(self.logArea)
         self.log_scroll.config(borderwidth='1', padding='1', relief='sunken')
         # TODO - self.log_scroll: code for custom option 'usemousewheel' not implemented.
-        self.log_scroll.grid(column='3', padx='5', pady='5', row='0', rowspan='3', sticky='nsew')
-        self.frame_1.config(height='720', padding='5', relief='flat', width='1280')
+        self.log_scroll.grid(column='3', padx='5', pady='5',
+                             row='0', rowspan='3', sticky='nsew')
+        self.frame_1.config(height='720', padding='5',
+                            relief='flat', width='1280')
         self.frame_1.pack(expand='true', fill='both', side='top')
         self.frame_1.columnconfigure('3', weight='1')
         '''
@@ -301,15 +332,18 @@ class PokeControllerApp:
                 # Locate an entry instead whenever dll is not imported successfully
                 self.camera_name_fromDLL.set("An error occurred when displaying the camera name in the Win/Mac "
                                              "environment.")
-                self._logger.warning("An error occurred when displaying the camera name in the Win/Mac environment.")
+                self._logger.warning(
+                    "An error occurred when displaying the camera name in the Win/Mac environment.")
                 self.Camera_Name.config(state='disable')
         elif platform.system() != 'Linux':
-            self.camera_name_fromDLL.set("Linux environment. So that cannot show Camera name.")
+            self.camera_name_fromDLL.set(
+                "Linux environment. So that cannot show Camera name.")
             self.Camera_Name.config(state='disable')
             self.cb_use_keyboard.config(state='disable')
             return
         else:
-            self.camera_name_fromDLL.set("Unknown environment. Cannot show Camera name.")
+            self.camera_name_fromDLL.set(
+                "Unknown environment. Cannot show Camera name.")
             self.Camera_Name.config(state='disable')
         # open up a camera
         self.camera = Camera(self.fps.get())
@@ -326,10 +360,12 @@ class PokeControllerApp:
                                    *list(map(int, self.show_size.get().split("x")))
                                    )
         self.preview.config(cursor='crosshair')
-        self.preview.grid(column='0', columnspan='7', row='2', padx='5', pady='5', sticky=tk.NSEW)
+        self.preview.grid(column='0', columnspan='7', row='2',
+                          padx='5', pady='5', sticky=tk.NSEW)
         self.loadCommands()
 
-        self.show_size_tmp = self.show_size_cb['values'].index(self.show_size_cb.get())
+        self.show_size_tmp = self.show_size_cb['values'].index(
+            self.show_size_cb.get())
         self.root.bind('<Key-F5>', self.ReloadCommandWithF5)
         self._logger.debug("Bind F5 key to reload commands")
         self.root.bind('<Key-F6>', self.StartCommandWithF6)
@@ -362,12 +398,17 @@ class PokeControllerApp:
             from DirectShowLib import DsDevice, FilterCategory
 
             # Get names of detected camera devices
-            captureDevices = DsDevice.GetDevicesOfCat(FilterCategory.VideoInputDevice)
-            self.camera_dic = {cam_id: device.Name for cam_id, device in enumerate(captureDevices)}
+            captureDevices = DsDevice.GetDevicesOfCat(
+                FilterCategory.VideoInputDevice)
+            self.camera_dic = {cam_id: device.Name for cam_id,
+                               device in enumerate(captureDevices)}
 
-            self.camera_dic[str(max(list(self.camera_dic.keys())) + 1)] = 'Disable'
-            self.Camera_Name['values'] = [device for device in self.camera_dic.values()]
-            self._logger.debug(f"Camera list: {[device for device in self.camera_dic.values()]}")
+            self.camera_dic[str(
+                max(list(self.camera_dic.keys())) + 1)] = 'Disable'
+            self.Camera_Name['values'] = [
+                device for device in self.camera_dic.values()]
+            self._logger.debug(
+                f"Camera list: {[device for device in self.camera_dic.values()]}")
             dev_num = len(self.camera_dic)
 
         elif platform.system() == "Darwin":
@@ -376,10 +417,13 @@ class PokeControllerApp:
             # 出力結果の加工
             ret = res.stdout.decode('utf-8')
             cam_list = list(filter(lambda a: a != "", ret.split('\n')))
-            self.camera_dic = {cam_id: camera_name for cam_id, camera_name in enumerate(cam_list)}
+            self.camera_dic = {cam_id: camera_name for cam_id,
+                               camera_name in enumerate(cam_list)}
             dev_num = len(self.Camera_Name['values'])
-            self.camera_dic[str(max(list(self.camera_dic.keys())) + 1)] = 'Disable'
-            self.Camera_Name['values'] = [device for device in self.camera_dic.values()]
+            self.camera_dic[str(
+                max(list(self.camera_dic.keys())) + 1)] = 'Disable'
+            self.Camera_Name['values'] = [
+                device for device in self.camera_dic.values()]
         else:
             return False
         if self.camera_id.get() > dev_num - 1:
@@ -418,7 +462,8 @@ class PokeControllerApp:
             subprocess.run(command, shell=True)
 
     def set_cameraid(self, event=None):
-        keys = [k for k, v in self.camera_dic.items() if v == self.Camera_Name.get()]
+        keys = [k for k, v in self.camera_dic.items() if v ==
+                self.Camera_Name.get()]
         if keys:
             ret = keys[0]
         else:
@@ -436,12 +481,14 @@ class PokeControllerApp:
         width, height = map(int, self.show_size.get().split("x"))
         self.preview.setShowsize(height, width)
         if self.show_size_tmp != self.show_size_cb['values'].index(self.show_size_cb.get()):
-            ret = tkmsg.askokcancel('確認', "この画面サイズに変更しますか？")
+            ret = tkmsg.askokcancel(
+                'Confirm', "Do you wish to change the screen size?")
         else:
             return
 
         if ret:
-            self.show_size_tmp = self.show_size_cb['values'].index(self.show_size_cb.get())
+            self.show_size_tmp = self.show_size_cb['values'].index(
+                self.show_size_cb.get())
         else:
             self.show_size_cb.current(self.show_size_tmp)
             width_bef, height_bef = map(int, self.show_size.get().split("x"))
@@ -456,8 +503,10 @@ class PokeControllerApp:
             self.activateSerial()
         else:
             if self.ser.openSerial(self.com_port.get(), self.com_port_name.get(), self.baud_rate.get()):
-                print('COM Port ' + str(self.com_port.get()) + ' connected successfully')
-                self._logger.debug('COM Port ' + str(self.com_port.get()) + ' connected successfully')
+                print('COM Port ' + str(self.com_port.get()) +
+                      ' connected successfully')
+                self._logger.debug(
+                    'COM Port ' + str(self.com_port.get()) + ' connected successfully')
                 self.keyPress = KeyPress(self.ser)
                 self.settings.com_port.set(self.com_port.get())
                 self.settings.baud_rate.set(self.baud_rate.get())
@@ -530,7 +579,8 @@ class PokeControllerApp:
     def loadCommands(self):
         self.py_loader = CommandLoader(util.ospath('Commands/PythonCommands'),
                                        PythonCommandBase.PythonCommand)  # コマンドの読み込み
-        self.mcu_loader = CommandLoader(util.ospath('Commands/McuCommands'), McuCommandBase.McuCommand)
+        self.mcu_loader = CommandLoader(util.ospath(
+            'Commands/McuCommands'), McuCommandBase.McuCommand)
         self.py_classes = self.py_loader.load()
         self.mcu_classes = self.mcu_loader.load()
         self.setCommandItems()
@@ -544,7 +594,8 @@ class PokeControllerApp:
 
     def assignCommand(self):
         # 選択されているコマンドを取得する
-        self.mcu_cur_command = self.mcu_classes[self.mcu_cb.current()]()  # MCUコマンドについて
+        # MCUコマンドについて
+        self.mcu_cur_command = self.mcu_classes[self.mcu_cb.current()]()
 
         # pythonコマンドは画像認識を使うかどうかで分岐している
         cmd_class = self.py_classes[self.py_cb.current()]
@@ -555,7 +606,6 @@ class PokeControllerApp:
                 self.py_cur_command = cmd_class(self.camera)
             except:
                 self.py_cur_command = cmd_class(self.camera)
-
 
         else:
             self.py_cur_command = cmd_class()
@@ -592,7 +642,8 @@ class PokeControllerApp:
         self.assignCommand()
 
         print(self.startButton["text"] + ' ' + self.cur_command.NAME)
-        self._logger.info(self.startButton["text"] + ' ' + self.cur_command.NAME)
+        self._logger.info(
+            self.startButton["text"] + ' ' + self.cur_command.NAME)
         self.cur_command.start(self.ser, self.stopPlayPost)
 
         self.startButton["text"] = "Stop"
@@ -601,7 +652,8 @@ class PokeControllerApp:
 
     def stopPlay(self):
         print(self.startButton["text"] + ' ' + self.cur_command.NAME)
-        self._logger.info(self.startButton["text"] + ' ' + self.cur_command.NAME)
+        self._logger.info(
+            self.startButton["text"] + ' ' + self.cur_command.NAME)
         self.startButton["state"] = "disabled"
         self.cur_command.end(self.ser)
 
@@ -616,7 +668,8 @@ class PokeControllerApp:
         self.mainwindow.mainloop()
 
     def exit(self):
-        ret = tkmsg.askyesno('確認', 'Poke Controllerを終了しますか？')
+        ret = tkmsg.askyesno(
+            'Confirm', 'Are you sure you want to close Poke Controller?')
         if ret:
             if self.ser.isOpened():
                 self.ser.closeSerial()

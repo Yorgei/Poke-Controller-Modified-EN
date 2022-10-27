@@ -1,40 +1,44 @@
-# Poke-Controller MODIFIED
+# Poke-Controller MODIFIED EN Translation
 
-本質的な部分はそのままに、機能を一部追加します
+This is an unofficial English fork of the Poke-Controller Modified Repo by [Moi-Poke](https://github.com/Moi-poke). I'm not fluent so there will probably be a few translation mistakes, I'm only doing this as practice.
+
+I have added some commands that are not present in Moi-poke's version and I have added Discord Webhook support as LINE isn't popular in the West.
+
+The text below is a translation of Moi-Poke's README.
 
 ![](https://github.com/Moi-Poke/Poke-Controller/blob/photo/photos/poke-con-modded.png)
 
-## 変更点
+## Changes
 
-### ~ver3.0の追加・変更点
+### ~ver3.0
 
-- ログ機能の追加\
-  ボタン入力をメインウィンドウに表示、加えて各関数のログをコンソール画面に表示&ファイル出力を行う\
-  ある程度確認しましたがボタン入力表示にはバグがあるかもしれないので注意
-- 画像認識時に該当部分を青枠で表示する機能を追加\
-  `isContainTemplate`関数に`show_position=False`を引数で渡すと表示しない
-- サンプルスクリプトの追加
+- Added additional logging functionality\
+  Display button inputs in the main window, and logs of each function in the console screen and file output\
+  Note: The button input display may occasionally be bugged.
+- Added functionality to display a blue border when matching a template\
+  When `show_position=False` is passed to `isContainTemplate` the border will not be shown.
+- Added some sample scripts
   - InputSwitchKeyboard.py
 
-    Switchのキーボードの自動入力のサンプルコード
+    Sample code for automatic input of the Switch's keyboard
   - InputSerial.py
 
-    シリアルコードの入力自動化サンプルコード
+    Sample code for automatic input of serial code
   - LoggingSample.py
 
-    マクロプログラム中でのログのとり方のサンプルコード
+    Sample code for creating a macro log file
 
 -----
 
-### ~ver2.8の追加・変更点
+### ~ver2.8
 
-- 開発の都合でpythonの動作確認バージョンを3.7.xとしています(とはいえ3.6でも動くはずです。)
-- FPSの設定の追加
-- 画面表示サイズの変更オプションの追加
-- ログエリアはサイズの変更に応じて横方向に伸縮するように
-- スティック周りの機能追加
+- Updated to Python Version 3.7.x (it should still be compatible with version 3.6)
+- Added a FPS setting
+- Added an option to change the video size
+- Log text book now resizes correctly when the app is resized
+- Added joystick functionality
 
-  **スティックの傾きの強さの設定**
+  **Setting the tilt sensitivity of the Joystick**
   - スティックの移動可能な範囲を単位円の内部と考えて、\
     傾き度合いを0以上1以下で設定可能にしました。\
     例えば`Direction(Stick.LEFT, θ, r)`\
@@ -50,7 +54,7 @@
     より詳しくはサンプルコードを同梱していますので\
     そちらとSwitch内設定のスティックの補正画面を合わせて確認してください
 
-  **マウスでスティック操作機能**
+  **Joystick control with a mouse**
   - マウスで直感的な操作ができそうな感じにしています。~~ラグがあるので操作は結構難しいです。~~\
     操作円の半径は変更可能なので、需要があればConfigファイルに載せます。 タッチパネル対応モニタ使用の際などの挙動は不明ですが、そちらのほうが向いているかもしれません。\
     またこの機能の追加に伴い、'Ctrl+左クリック'がクリック点座標表示になっています。
@@ -58,47 +62,46 @@
   - キャプチャしている画面部分を'Ctrl+Shift+左クリック'しながらドラッグした範囲をキャプチャすることができます。
 - メニュー機能の追加
 
-  現状は以下の機能のみ
-  - LINE連携機能のToken確認\
-    Python Commandの関数にLine通知コマンドを追加しています。その設定がちゃんとできているかの確認です\
+  Added new features
+  - LINE Notifications\
+    Added a LINE Notification command in Python Command. \
     **Usage**
-    - LINE Notifyより通知用のTokenを取得 Tokenをline_token.iniの`paste_your_token_here`部分に貼り付け テキスト通知をしたいときは
+    - Replace `paste_your_token_here` with your LINE API token in the line_token.ini file.
       ```python
-      self.LINE_text("通知したい内容")
+      self.LINE_text("Type your message here")
       ```
-      画像認識を用いるプログラム内では\
-      画像とテキストを同時に通知することが可能で
+      It is possible to send images and text at the same time \
+      in a command using Image Recognition.
       ```python
-      self.LINE_image("通知したい内容")
+      self.LINE_image("Type your message here")
       ```
-      と書きます
-    - アプリ起動時にLINE Token Check FAILED.と表示される間はtokenが間違っています。
-    - Tokenが正しい場合、アプリ起動時にAPI制限までの回数・リセットされる時刻が表示されます。メニューのLINE Token checkから残数を確認できます。 頻繁に通知を行うと制限に達することがあるので気をつけましょう
-    - 複数のトークンに対応しています。 tokenファイルに改行して別のトークン名を追記し、関数に引数として渡すことで使い分けてください。 詳しくはサンプルコードを参考にしてください
+    - The program will write to the log area LINE Token Check FAILED on startup if the token is invalid.
+    - If the LINE Token is correct, the application will display the amount of API uses until the limit is reached and when it will reset \
+    You can check it at any time with the Line Token Check in the menu options. Frequent notifications can cause you to reach the API limit.
+    - Supports multiple LINE tokens. Add a new line and another token name to the line_token.ini file and pass it as an argument to the LINE functions. Check the sample code for examples.
 
-  - Pokémon Home連携
+  - Pokémon Home Link
+  
+    This may change significantly in the near future.
+    Pokémon with different form names (e.g. Rotom) are currently only supported up to the 7th generation.
+    You can add the following to `SerialController/db/poke_form_name.csv` to support them
 
-    そのうち大幅に変わるかもしれません\
-    フォルム別の名前があるポケモン(ロトムなど)については現在第7世代までしか対応していません\
-    `SerialController/db/poke_form_name.csv`に追記することで対応可能になります
-  - キーコンフィグ追加
+  - Key Configurations added
 
-    主要なキーのコンフィグ機能を追加しています。\
-    注意点として、複数キーを同時に割り当てても、同時に入力されることはありません。少々不親切ですがお許しください\
-    また、これにともなって設定ファイルの書式が変わっています。手動で書き換え可能になっています。\
-    デフォルトに戻す機能はつけていないので、戻したいときは設定ファイルを消すか、Setting.pyを読んでください。
-- ~~ボタン入力関数表示機能追加プログラム(作 KCT様)を組み込み~~ ver3.0以降独自の入力表示機能実装に変更
-- その他GUIのブラッシュアップ
-- Codeのリファクタリング
+    Added a key configurator. If multiple keys are pressed at the same time, they will not be sent to the console at the same time. \
+    The format for the configuration file has been changed. \
+    There is no function to restore the default settings, please read the Setting.py file if needed.
+- ~~Button input function display function addition program (by KCT) is incorporated~~ Changed to original input display implementation since ver3.0.
+- Cleaned up the GUI a bit
+- Code Refactoring
 
-  私の開発環境の関係で全体的にPEP8準拠寄りにしました
-  - タブインデントからスペース4つインデントに変更
-  - 不要なimportの削除、並び替えなど最適化
+  I have made my code more PEP8 compliant due to my development environment.
+  - Changed from tab indentation to 4-space indentation.
+  - Removed unnecessary imports, reordered and optimized imports.
 
 ## Installation
 
-必要なライブラリ(+推奨するライブラリ)が増えています。 構築した環境にインストールしてください。
-
+Added some required and recommend libraries. Please install them.
 ```python
 pygubu
 requests
@@ -106,18 +109,16 @@ pandas
 numpy
 ```
 
-## おまけ
+## Misc
 
-- 好みの表示サイズがある場合は、Window.pyのそれっぽいところに自分好みのサイズを追記してください。fpsも同様です。
+- The code for running OpenCV processing on NVIDIA GPU is included (TemplateMatchingTimeMeasure.py). \
+   However, it is not available for libraries installable with `pip install` \
+   If you want to use it, you need to build OpenCV for python from the source code with the option corresponding to your GPU. \
+   It is quite difficult and takes a lot of time to process, but if you have the time, please try it. \
+   `OpenCV + CUDA (+Windows)`
+   If you search for such, the explanation page of the build will appear.
 
-- OpenCVで行う処理をNVIDIA GPUで動かすためのコードを同梱しています(TemplateMatchingTimeMeasure.py)。\
-  ただし、pip install でインストール可能なライブラリでは使用できません\
-  使用してみたい方は、各自で自分のGPUに対応したオプションでpython用のOpenCVをソースコードからビルドして貰う必要があります。\
-  それなりに難易度が高くかなり手間な処理になりますが、余裕がある方は試してみてください。\
-  `OpenCV + CUDA (+ Windows)`
-  などと検索すればビルドの解説ページが出てきます。
-
-以下は本家様の説明になります。
+Below is the original README
 - - -
 
 Pythonで書く！Switchの自動化支援ソフトウェア
