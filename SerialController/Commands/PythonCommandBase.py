@@ -33,7 +33,7 @@ class PythonCommand(CommandBase.Command):
         self.thread = None
         self.alive = True
         self.postProcess = None
-        self.Line = Line_Notify()
+        # self.Line = Line_Notify()
         self.message_dialogue = None
 
         self._logger = getLogger(__name__)
@@ -127,7 +127,7 @@ class PythonCommand(CommandBase.Command):
             while time.perf_counter() < current_time + wait:
                 pass
         self.checkIfAlive()
-    
+
     def checkIfAlive(self):
         if not self.alive:
             self.keys.end()
@@ -146,7 +146,8 @@ class PythonCommand(CommandBase.Command):
 
     def dialogue(self, title: str, message: int | str | list, need=list):
         self.message_dialogue = tk.Toplevel()
-        ret = PokeConDialogue(self.message_dialogue, title, message).ret_value(need)
+        ret = PokeConDialogue(self.message_dialogue,
+                              title, message).ret_value(need)
         self.message_dialogue = None
         return ret
 
@@ -218,9 +219,12 @@ class PythonCommand(CommandBase.Command):
             self.reload_com_port()
         else:
             if self.keys.ser.openSerial(Settings.GuiSettings().com_port.get(), Settings.GuiSettings().com_port_name.get(), Settings.GuiSettings().baud_rate.get()):
-                print('COM Port ' + str(Settings.GuiSettings().com_port.get()) + ' connected successfully')
-                self._logger.debug('COM Port ' + str(Settings.GuiSettings().com_port.get()) + ' connected successfully')
+                print('COM Port ' + str(Settings.GuiSettings().com_port.get()
+                                        ) + ' connected successfully')
+                self._logger.debug(
+                    'COM Port ' + str(Settings.GuiSettings().com_port.get()) + ' connected successfully')
                 # self.keyPress = None (ここでNoneはNGなはず)
+
 
 class PokeConDialogue(object):
     def __init__(self, parent, title: str, message: int | str | list):
@@ -235,8 +239,10 @@ class PokeConDialogue(object):
         self.main_frame = tk.Frame(self.message_dialogue)
         self.inputs = ttk.Frame(self.main_frame)
 
-        self.title_label = ttk.Label(self.main_frame, text=title, anchor='center')
-        self.title_label.grid(column=0, columnspan=2, ipadx='10', ipady='10', row=0, sticky='nsew')
+        self.title_label = ttk.Label(
+            self.main_frame, text=title, anchor='center')
+        self.title_label.grid(column=0, columnspan=2,
+                              ipadx='10', ipady='10', row=0, sticky='nsew')
 
         self.dialogue_ls = {}
         if type(message) is not list:
@@ -252,11 +258,13 @@ class PokeConDialogue(object):
         for i in range(n):
             self.dialogue_ls[message[i]] = tk.StringVar()
             label = ttk.Label(self.inputs, text=message[i])
-            entry = ttk.Entry(self.inputs, textvariable=self.dialogue_ls[message[i]])
+            entry = ttk.Entry(
+                self.inputs, textvariable=self.dialogue_ls[message[i]])
             label.grid(column=0, row=i, sticky='nsew', padx=3, pady=3)
             entry.grid(column=1, row=i, sticky='nsew', padx=3, pady=3)
 
-        self.inputs.grid(column=0, columnspan=2, ipadx='10', ipady='10', row=1, sticky='nsew')
+        self.inputs.grid(column=0, columnspan=2, ipadx='10',
+                         ipady='10', row=1, sticky='nsew')
         self.inputs.grid_anchor('center')
         self.result = ttk.Frame(self.main_frame)
         self.OK = ttk.Button(self.result, command=self.ok_command)
@@ -309,7 +317,7 @@ class ImageProcPythonCommand(PythonCommand):
         self._logger.propagate = True
 
         self.camera = cam
-        self.Line = Line_Notify(self.camera)
+        # self.Line = Line_Notify(self.camera)
 
         self.gui = gui
 
@@ -323,13 +331,29 @@ class ImageProcPythonCommand(PythonCommand):
     # 色の違いを考慮しないのであればパフォーマンスの点からuse_grayをTrueにしてグレースケール画像を使うことを推奨します
     def isContainTemplate(self, template_path, threshold=0.7, use_gray=True,
                           show_value=False, show_position=True, show_only_true_rect=True, ms=2000, crop=[]):
+        """_summary_
+
+        Args:
+            template_path (_type_): path to template image
+            threshold (float, optional): Match threshold. Defaults to 0.7.
+            use_gray (bool, optional): use grayscale. Defaults to True.
+            show_value (bool, optional): print value. Defaults to False.
+            show_position (bool, optional): show position. Defaults to True.
+            show_only_true_rect (bool, optional): . Defaults to True.
+            ms (int, optional): . Defaults to 2000.
+            crop (list, optional): coords for search. Defaults to [].
+
+        Returns:
+            _type_: boolean
+        """
         src = self.camera.readFrame()
         src = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY) if use_gray else src
-        
+
         if len(crop) == 4:
             src = src[crop[1]: crop[3], crop[0]: crop[2]]
-        
-        template = cv2.imread(TEMPLATE_PATH + template_path, cv2.IMREAD_GRAYSCALE if use_gray else cv2.IMREAD_COLOR)
+
+        template = cv2.imread(TEMPLATE_PATH + template_path,
+                              cv2.IMREAD_GRAYSCALE if use_gray else cv2.IMREAD_COLOR)
         w, h = template.shape[1], template.shape[0]
 
         method = cv2.TM_CCOEFF_NORMED
@@ -337,7 +361,8 @@ class ImageProcPythonCommand(PythonCommand):
         _, max_val, _, max_loc = cv2.minMaxLoc(res)
 
         if show_value:
-            print(template_path + ' ZNCC value: ' + str(max_val))
+            # print(template_path + ' ZNCC value: ' + str(max_val))
+            print(str(max_loc))
 
         top_left = max_loc
         bottom_right = (top_left[0] + w + 1, top_left[1] + h + 1)
@@ -360,7 +385,7 @@ class ImageProcPythonCommand(PythonCommand):
                                  tag=tag,
                                  ms=ms)
             return False
-    
+
     # 現在のスクリーンショットと指定した複数の画像のテンプレートマッチングを行います
     # 相関値が最も大きい値となった画像のインデックス、各画像のテンプレートマッチングの閾値、閾値判定結果を返します。
     # 色の違いを考慮しないのであればパフォーマンスの点からuse_grayをTrueにしてグレースケール画像を使うことを推奨します
@@ -368,14 +393,15 @@ class ImageProcPythonCommand(PythonCommand):
                               show_value=False, show_position=True, show_only_true_rect=True, ms=2000, crop=[]):
         src = self.camera.readFrame()
         src = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY) if use_gray else src
-        
+
         if len(crop) == 4:
             src = src[crop[1]: crop[3], crop[0]: crop[2]]
-        
+
         max_val_list = []
         judge_threshold_list = []
         for template_path in template_path_list:
-            template = cv2.imread(TEMPLATE_PATH + template_path, cv2.IMREAD_GRAYSCALE if use_gray else cv2.IMREAD_COLOR)
+            template = cv2.imread(TEMPLATE_PATH + template_path,
+                                  cv2.IMREAD_GRAYSCALE if use_gray else cv2.IMREAD_COLOR)
             w, h = template.shape[1], template.shape[0]
 
             method = cv2.TM_CCOEFF_NORMED
@@ -395,18 +421,18 @@ class ImageProcPythonCommand(PythonCommand):
                 if self.gui is not None and show_position:
                     # self.gui.delete("ImageRecRect")
                     self.gui.ImgRect(*top_left,
-                                    *bottom_right,
-                                    outline='blue',
-                                    tag=tag,
-                                    ms=ms)
+                                     *bottom_right,
+                                     outline='blue',
+                                     tag=tag,
+                                     ms=ms)
             else:
                 if self.gui is not None and show_position and not show_only_true_rect:
                     # self.gui.delete("ImageRecRect")
                     self.gui.ImgRect(*top_left,
-                                    *bottom_right,
-                                    outline='red',
-                                    tag=tag,
-                                    ms=ms)
+                                     *bottom_right,
+                                     outline='red',
+                                     tag=tag,
+                                     ms=ms)
 
         return np.argmax(max_val_list), max_val_list, judge_threshold_list
 
@@ -418,7 +444,8 @@ class ImageProcPythonCommand(PythonCommand):
 
             self.gsrc.upload(src)
 
-            template = cv2.imread(TEMPLATE_PATH + template_path, cv2.IMREAD_GRAYSCALE if use_gray else cv2.IMREAD_COLOR)
+            template = cv2.imread(TEMPLATE_PATH + template_path,
+                                  cv2.IMREAD_GRAYSCALE if use_gray else cv2.IMREAD_COLOR)
             self.gtmpl.upload(template)
 
             method = cv2.TM_CCOEFF_NORMED
@@ -463,4 +490,3 @@ class ImageProcPythonCommand(PythonCommand):
             self.Line.send_text_n_image(txt, token)
         except:
             pass
-

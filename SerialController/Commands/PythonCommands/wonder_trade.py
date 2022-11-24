@@ -6,7 +6,7 @@ import time
 
 
 class WonderTrade(ImageProcPythonCommand):
-    NAME = "[EN] Wonder Trade SwSh v0.1"
+    NAME = "[EN] [SwSh] Wonder Trade v0.1"
     CAPTURE_DIR = "Screenshot/swsh_wondertrade/"
 
     def __init__(self, cam):
@@ -63,6 +63,7 @@ class WonderTrade(ImageProcPythonCommand):
         while not self.check_trade_complete_en():
             wait_count += 1
             self.wait(3)
+        # Opens trade complete
         self.press(Button.Y, wait=15.5)
         # print('Saving screenshot, checking for hacked name')
         self.camera.saveCapture()
@@ -71,6 +72,7 @@ class WonderTrade(ImageProcPythonCommand):
 
     def do(self):
         while True:
+            curr_box = 0
             for b in range(0, self.boxes):
                 for i in range(0, self.row):
                     for j in range(0, self.col):
@@ -85,9 +87,12 @@ class WonderTrade(ImageProcPythonCommand):
                         print(
                             f'Trading Pokemon from Box {b} Row {i} Column {j}')
                         self.wait(4)
+                        if curr_box != b:
+                            curr_box = b
+                            print('Changing boxes.')
+                            self.press(Button.R, wait=1)
                         self.pressRep(Direction.DOWN,
                                       repeat=i, wait=0.4)
                         self.pressRep(Direction.RIGHT, repeat=j, wait=0.4)
                         self.trade_pokemon()
                         # TODO: Check if new pokedex entry then exit
-                        # TODO: Change Box

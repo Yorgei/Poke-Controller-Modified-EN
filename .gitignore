@@ -122,3 +122,6 @@ SerialController/venv/
 
 # mypy
 .mypy_cache/
+
+rng_test/*
+rng_test/

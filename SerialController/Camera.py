@@ -115,9 +115,10 @@ class Camera:
         try:
             imwrite(save_path, image)
             self._logger.debug(f"Capture succeeded: {save_path}")
-            print('capture succeeded: ' + save_path)
+            # I don't like the print spam, maybe add an arg? Seems useless though since it logs it
+            # print('capture succeeded: ' + save_path)
         except cv2.error as e:
-            print("Capture Failed")
+            # print("Capture Failed")
             self._logger.error(f"Capture Failed :{e}")
 
     def destroy(self):
